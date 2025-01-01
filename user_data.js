@@ -1,27 +1,44 @@
 const { faker } = require("@faker-js/faker");
+const pool = require('./config/db');
 
-const userData = [];
+// const userData = [];
 
-for (let i = 0; i < 100; i++) {
-    const user = {
-        firstName: faker.person.firstName(),
-        lastName: faker.person.lastName(),
-        email: faker.internet.email(),
-        password: faker.internet.password(),
-        phoneNumber: faker.phone.number(),
-        dateOfBirth: faker.date.birthdate(),
-        address: faker.location.streetAddress(),
-        city: faker.location.city(),
-        state: faker.location.state(),
-        country: faker.location.country(),
-        postalCode: faker.location.zipCode(),
-        role: 'user',
-        profilePicURL: faker.image.url(),
-        createdAt: '',
-        updatedAt: ''
-    }
-    userData.push(user);
+const seedUsers = async () => {
+    for (let i = 0; i < 100; i++) {
+       await pool.query(`INSERT INTO users (
+        firstName
+        , lastName
+        , email
+        , password
+        , phoneNumber
+        , dateOfBirth
+        , address
+        , city
+        , state
+        , country
+        , postalCode
+        , role
+        , profilePicURL
+        , createdAt
+        , updatedAt)
+        VALUES (
+        faker.person.firstName()
+        , ${faker.person.lastName()}
+        , ${faker.internet.email()}
+        , ${faker.internet.password()}
+        , ${faker.phone.number()}
+        , ${faker.date.birthdate()}
+        , ${faker.location.streetAddress()}
+        , ${faker.location.city()}
+        , ${faker.location.state()}
+        , ${faker.location.country()}
+        , ${faker.location.zipCode()}
+        , "user"
+        , ${faker.image.url()}
+        , ""
+        , ""
+        )`)};
 }
 
-module.exports = userData;
+seedUsers();
 

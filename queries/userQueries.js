@@ -4,11 +4,11 @@ const queryDatabase = async () => {
   try {
     // Example query
     const res = await pool.query('SELECT * FROM users');
-    console.log('Database Time:', res.rows[0]);
+    console.log(res.rows);
   } catch (err) {
     console.error('Error executing query:', err.stack);
   } finally {
-    await pool.end(); // Close the connection pool
+    await pool.end();
   }
 };
 

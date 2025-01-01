@@ -11,7 +11,7 @@ const params = {
 const pool = new Pool(params)
 
 if (pool) {
-    console.log("successful")
+    console.log("Connection to database successful!")
 }
 
 module.exports = pool;
